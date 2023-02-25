@@ -9,7 +9,7 @@
     
     <title>
         
-            Archive: 2023/1 |
+            Swift中optional类型的解包方法 |
         
         Arie‘s Blog
     </title>
@@ -104,7 +104,7 @@
                         
                             <li class="menu-item">
                                 <!-- Menu -->
-                                <a class="active" 
+                                <a class="" 
                                     href="/archives" >
                                     
                                         
@@ -248,7 +248,7 @@
             
                 
                     <li class="drawer-menu-item flex-center">
-                        <a class="active" 
+                        <a class="" 
                         href="/archives" >
                              
                                 
@@ -355,52 +355,237 @@
 
                 
                     <div class="fade-in-down-animation">
-    <div class="archive-container ">
-        
-<div class="archive-list-container">
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2023</span>
-                <span class="archive-year-post-count">[4]</span>
+    <div class="post-page-container">
+        <div class="article-content-container">
+            <div class="article-title">
+                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">Swift中optional类型的解包方法</h1></span>
             </div>
-            <ul class="article-list">
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/%E5%A4%B4%E5%83%8F.jpeg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Arie</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2023-02-16 16:07:54</span>
+        <span class="mobile">2023-02-16 16:07</span>
+    </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
                 
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2023/02/16/%E6%9D%82/"
-                        >杂</a>
-                        <span class="article-date">02-16</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2023/02/16/Swift%E4%B8%ADoptional%E7%B1%BB%E5%9E%8B%E7%9A%84%E8%A7%A3%E5%8C%85%E6%96%B9%E6%B3%95/"
-                        >Swift中optional类型的解包方法</a>
-                        <span class="article-date">02-16</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2023/01/08/test/"
-                        >test</a>
-                        <span class="article-date">01-08</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2023/01/04/hello-world/"
-                        >Hello World</a>
-                        <span class="article-date">01-04</span>
+                    <li>
+                        <a href="/tags/IOS%E5%BC%80%E5%8F%91/">IOS开发</a>&nbsp;
                     </li>
                 
             </ul>
-        </section>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-file-word"></i>&nbsp;<span>727 Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>3 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
     
 </div>
 
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction:"></a><strong>Introduction:</strong></h3><p><strong>关于Swift中optional类型的几种解包方法</strong></p>
+<p>实习了一个多月，刚刚去看ios开发的面试题，有一道是“optional类型的解包方法” ，不会，速速查，以下摘抄搬运大佬blog</p>
+<p><a class="link"   target="_blank" rel="noopener" href="http://zhangzr.cn/2020/01/30/Swift%E4%B8%AD%E7%9A%84%E5%8F%AF%E9%80%89%E7%B1%BB%E5%9E%8B%EF%BC%88Optional%EF%BC%89/" >http://zhangzr.cn/2020/01/30/Swift%E4%B8%AD%E7%9A%84%E5%8F%AF%E9%80%89%E7%B1%BB%E5%9E%8B%EF%BC%88Optional%EF%BC%89/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><strong>and 缩进缩进一定注意缩进！！！</strong></p>
+<h2 id="Main"><a href="#Main" class="headerlink" title="Main"></a>Main</h2><blockquote>
+<p>A type that represents either a wrapped value or nil, the absence of a value.</p>
+</blockquote>
+<p>这句话是来自官方文档对可选类型（Optional）的解释，意思就是这个类型有可能有值，也有可能为nil。</p>
+<h3 id="声明一个可选类型"><a href="#声明一个可选类型" class="headerlink" title="声明一个可选类型"></a>声明一个可选类型</h3><p>有两种方式可以声明一个可选类型：</p>
+<div class="highlight-container" data-rel="Swift"><figure class="iseeu highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> shortForm: <span class="type">Int</span>? <span class="operator">=</span> <span class="type">Int</span>(<span class="string">&quot;42&quot;</span>)</span><br><span class="line"><span class="keyword">let</span> longForm: <span class="type">Optional</span>&lt;<span class="type">Int</span>&gt; <span class="operator">=</span> <span class="type">Int</span>(“<span class="number">42</span>”)</span><br></pre></td></tr></table></figure></div>
+
+<p>这两种方式实现出来的内容是完全一样的。</p>
+<p>另外，我们也可以根据之前枚举中的内容来声明一个可选类型：</p>
+<div class="highlight-container" data-rel="Swift"><figure class="iseeu highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> number: <span class="type">Int</span>? <span class="operator">=</span> <span class="type">Optional</span>.some(<span class="number">42</span>)</span><br><span class="line"><span class="keyword">let</span> noNumber: <span class="type">Int</span>? <span class="operator">=</span> <span class="type">Optional</span>.none</span><br><span class="line"><span class="built_in">print</span>(noNumber <span class="operator">==</span> <span class="literal">nil</span>)</span><br><span class="line"><span class="comment">// Prints “true”</span></span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="可选类型的解包"><a href="#可选类型的解包" class="headerlink" title="可选类型的解包"></a>可选类型的解包</h3><h4 id="强制解包（-）"><a href="#强制解包（-）" class="headerlink" title="强制解包（!）"></a>强制解包（!）</h4><p>当我们百分百确定一个实例一定有值并且是某一个类型的时候，可以使用”!”感叹号来进行强制解包，但是一定要注意，<u>如果强制解包的实例是nil或者不是认定的类型时，强制解包会报错并引发崩溃。</u></p>
+<div class="highlight-container" data-rel="Swift"><figure class="iseeu highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> number <span class="operator">=</span> <span class="type">Int</span>(“<span class="number">42</span>”)<span class="operator">!</span></span><br><span class="line"><span class="built_in">print</span>(number)</span><br><span class="line"><span class="comment">// Prints “42”</span></span><br></pre></td></tr></table></figure></div>
+
+<h4 id="自动解包"><a href="#自动解包" class="headerlink" title="自动解包"></a>自动解包</h4><p>如果在声明一个实例的时候直接用“!”来修饰，表明我确信这个值一定存在并属于某一个类型，这个时候可以在声明的时候就使用”!”，这样的话，在使用的时候系统对自动对他进行解包，无需再加“!”</p>
+<div class="highlight-container" data-rel="Swift"><figure class="iseeu highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> number: <span class="type">Int</span>! </span><br><span class="line">number <span class="operator">=</span> <span class="number">42</span></span><br><span class="line"><span class="built_in">print</span>(number)</span><br><span class="line"><span class="comment">// Prints “42”</span></span><br></pre></td></tr></table></figure></div>
+
+<h4 id="使用if-let解包"><a href="#使用if-let解包" class="headerlink" title="使用if-let解包"></a>使用if-let解包</h4><p>使用if-let时会对新创建的对象进行一个判断，如果不为nil才会继续走后边的代码，如果为nil，则不走。</p>
+<div class="highlight-container" data-rel="Swift"><figure class="iseeu highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name: <span class="type">String</span>? <span class="operator">=</span> <span class="string">&quot;loveway”</span></span><br><span class="line"><span class="string">if let name = name &#123;</span></span><br><span class="line"><span class="string">   “My name is “ + name</span></span><br><span class="line"><span class="string">&#125; else &#123;</span></span><br><span class="line"><span class="string">    print(“name is nil”)</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure></div>
+
+<p>以上代码相当于：</p>
+<div class="highlight-container" data-rel="Swift"><figure class="iseeu highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name: <span class="type">String</span>? <span class="operator">=</span> <span class="string">&quot;loveway”</span></span><br><span class="line"><span class="string">if name != nil &#123;</span></span><br><span class="line"><span class="string">   “My name is “ + name</span></span><br><span class="line"><span class="string">&#125; else &#123;</span></span><br><span class="line"><span class="string">    print(“name is nil”)</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure></div>
+
+<h4 id="可选链式调用（Optional-Chaining）"><a href="#可选链式调用（Optional-Chaining）" class="headerlink" title="可选链式调用（Optional Chaining）"></a>可选链式调用（Optional Chaining）</h4><p>可选链式调用，通常是当使用某个实例时，在后边加上“?”，如果这个实例存在，则正常解包使用，如果不存在，则作为nil不执行后边的方法。</p>
+<div class="highlight-container" data-rel="Swift"><figure class="iseeu highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> imagePaths[“star”]<span class="operator">?</span>.hasSuffix(“.png”) <span class="operator">==</span> <span class="literal">true</span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(“<span class="type">The</span> star image <span class="keyword">is</span> <span class="keyword">in</span> <span class="type">PNG</span> format”)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Prints “The star image is in PNG format”</span></span><br></pre></td></tr></table></figure></div>
+
+<h4 id="空合运算符（-Nil-Coalescing-Operator）"><a href="#空合运算符（-Nil-Coalescing-Operator）" class="headerlink" title="空合运算符（?? Nil-Coalescing Operator）"></a>空合运算符（?? Nil-Coalescing Operator）</h4><p>空合运算符实际上相当于对需要解包的元素进行一个判断，如果如下代码：</p>
+<div class="highlight-container" data-rel="Swift"><figure class="iseeu highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> defaultImagePath <span class="operator">=</span> “<span class="operator">/</span>images<span class="operator">/</span><span class="keyword">default</span>.png”</span><br><span class="line"><span class="keyword">let</span> heartPath <span class="operator">=</span> imagePaths[“heart”] <span class="operator">??</span> defaultImagePath</span><br><span class="line"><span class="built_in">print</span>(heartPath)</span><br><span class="line"><span class="comment">// Prints “/images/default.png”</span></span><br></pre></td></tr></table></figure></div>
+
+<p>就相当于：</p>
+<div class="highlight-container" data-rel="Swift"><figure class="iseeu highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> heartPath <span class="operator">=</span> imagePaths[“heart”] <span class="operator">==</span> <span class="literal">nil</span> <span class="operator">?</span>imagePaths[“heart”] : defaultImagePath</span><br><span class="line"><span class="built_in">print</span>(heartPath)</span><br><span class="line"><span class="comment">// Prints “/images/default.png”</span></span><br></pre></td></tr></table></figure></div>
+
+<p>也就是说，先看??之前的值是否存在，如果存在就使用，如果不存在就使用??后边的值。</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：Swift中optional类型的解包方法</li>
+        <li>Post author：Arie</li>
+        <li>Create time：2023-02-16 16:07:54</li>
+        <li>
+            Post link：https://arieran.github.io/2023/02/16/Swift中optional类型的解包方法/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/IOS%E5%BC%80%E5%8F%91/">#IOS开发</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2023/02/16/%E6%9D%82/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">杂</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/01/08/test/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">test</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+ 
+    <div id="waline"></div>
+    <script data-pjax 
+        src="//evan.beee.top/js/waline.js"></script>
+    <script data-pjax>
+        function loadWaline() {
+            Waline.init({
+                el: '#waline',
+                serverURL: 'https://arie-s-comment.vercel.app/',
+                lang: 'zh-CN',
+                dark: 'body[class~="dark-mode"]',
+                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
+            });
+        }
+
+        if ('true') {
+            const loadWalineTimeout = setTimeout(() => {
+                loadWaline();
+                clearTimeout(loadWalineTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadWaline);
+        }
+        
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Introduction"><span class="nav-text">Introduction:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Main"><span class="nav-text">Main</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A3%B0%E6%98%8E%E4%B8%80%E4%B8%AA%E5%8F%AF%E9%80%89%E7%B1%BB%E5%9E%8B"><span class="nav-text">声明一个可选类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E9%80%89%E7%B1%BB%E5%9E%8B%E7%9A%84%E8%A7%A3%E5%8C%85"><span class="nav-text">可选类型的解包</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%BA%E5%88%B6%E8%A7%A3%E5%8C%85%EF%BC%88-%EF%BC%89"><span class="nav-text">强制解包（!）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E8%A7%A3%E5%8C%85"><span class="nav-text">自动解包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8if-let%E8%A7%A3%E5%8C%85"><span class="nav-text">使用if-let解包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AF%E9%80%89%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8%EF%BC%88Optional-Chaining%EF%BC%89"><span class="nav-text">可选链式调用（Optional Chaining）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A9%BA%E5%90%88%E8%BF%90%E7%AE%97%E7%AC%A6%EF%BC%88-Nil-Coalescing-Operator%EF%BC%89"><span class="nav-text">空合运算符（?? Nil-Coalescing Operator）</span></a></li></ol></li></ol>
     </div>
 </div>
+            </div>
+        
+    </div>
+</div>
+
 
                 
 
@@ -469,6 +654,27 @@
         </div>
     </div>
 
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
     
 
     <div class="right-bottom-side-tools">
@@ -606,6 +812,14 @@
 
 
 <div class="post-scripts pjax">
+    
+        
+<script src="/js/toc-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
     
 </div>
 
