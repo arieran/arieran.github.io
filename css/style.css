@@ -4756,8 +4756,3 @@ ul.wl-sort {
   box-shadow: none;
   transform: translateY(0);
 }
-
- /**普通指针样式**/  
- body{cursor:url(/Users/doumeili/hexo-blog/public/images/鼠标1.png),default; }  
- /**链接指针样式**/  
- a:hover{cursor:url(/Users/doumeili/hexo-blog/public/images/鼠标2.png),pointer;}
