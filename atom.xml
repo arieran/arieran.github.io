@@ -6,7 +6,7 @@
   <link href="https://arieran.github.io/atom.xml" rel="self"/>
   
   <link href="https://arieran.github.io/"/>
-  <updated>2023-02-16T12:33:33.946Z</updated>
+  <updated>2023-02-16T08:24:43.550Z</updated>
   <id>https://arieran.github.io/</id>
   
   <author>
@@ -15,29 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>杂</title>
-    <link href="https://arieran.github.io/2023/02/16/%E6%9D%82/"/>
-    <id>https://arieran.github.io/2023/02/16/%E6%9D%82/</id>
-    <published>2023-02-16T08:49:43.000Z</published>
-    <updated>2023-02-16T12:33:33.946Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="ᐕ-୨"><a href="#ᐕ-୨" class="headerlink" title="ᐕ)୨"></a>ᐕ)୨</h1><p>感觉写下来记下来比收藏吃灰有用，一直记录一直学习，每天睡前看一看</p><h2 id="面经总结"><a href="#面经总结" class="headerlink" title="面经总结"></a>面经总结</h2><p>1、字节面试算法题很重要：最优时空复杂度解法</p><p>这学期要自学操作系统和计算机网络，否则找不到工作</p><p>建议刷题：在5月之前刷完</p><p><a class="link"   href="https://leetcode.com/problem-list/top-100-liked-questions/" >https://leetcode.com/problem-list/top-100-liked-questions/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p><p><a class="link"   href="https://leetcode-cn.com/problem-list/xb9nqhhg/" >https://leetcode-cn.com/problem-list/xb9nqhhg/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p><p><a class="link"   href="https://blog.csdn.net/dingdingdodo/article/details/106083169" >https://blog.csdn.net/dingdingdodo/article/details/106083169 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 动态规划</p><p>2、每次面试后不会的问题一定要查明</p><p>3、基础知识要尽量做到知其然也知其所以然</p><p>4、反问：</p><p>（1）可以问您对我有什么评价，如果回答基础好过的可能性会比较大，如果回答要加强基础，很可能是挂了</p><p>5、IOS学习建议：看一些基础的教学视频，然后边做边学，常用Google英文搜索，多去Stackoverflow逛逛，多去Github上folk些demo源码，慢慢就会了。</p><h4 id="字节"><a href="#字节" class="headerlink" title="字节"></a>字节</h4><p>B：我为什么想要去字节跳动？（字节跳动的优势）<br>①福利待遇</p><p>我不是 hr，也不是给字节打广告，这里真的要提一下字节跳动的福利待遇绝对是一线厂子里数一数二的。加上我是外包出身，这种待遇给我造成的落差感就更明显，让我觉得能够进字节跳动工作算是我最大的幸运了。</p><p>至于福利待遇，这里随便提及几点：</p><p>弹性打卡</p><p>房补（额度算很高了，算很人性化）</p><p>免费的三餐、下午茶（吃胖了）</p><p>免费健身房</p><p>顶配 16 寸 MacBook</p><p>各种节日礼包<br>②巨大的知识库</p><p>字节跳动对于我来说，算是一个巨大的知识库，之所以这么说，从面试的流程及细节，到后来我入职之后工作上面的安排，都让我有不一样的触动。从这几方面，我们都能够感受到公司对于员工的职业规划非常重视，你的主管和导师都会主动去找你沟通这方面的，这对比我之前的外包，是截然不同的地方。而在这个交流过程中，我获得到的，不是一星半点。</p><p>最让我佩服的是，字节有统一的入口可以导航到海量的指南和知识沉淀，甚至是其他各个产品线整理的技术和业务文档等等。</p><p>③我看到了认同</p><p>来到字节，我看到了认同，收获了归属感。字节跳动虽然年轻，但在做事上有共同一致的目标，这里的人讲“字节范儿”，它不是条条框框的束缚，它是一种精神食粮，实质是一种价值认同。恰好，拥有同一种价值认同的人走到了一起。</p><p>④虽辛苦，但不感觉累</p><p>字节跳动是一家非常年轻化的公司，对于一线的互联网公司来说，996 是常态，字节跳动也脱离不开“加班”二字。但是字节给我最大不同的感受是，忙碌且生机勃勃。在字节工作一段时间了，我也算是跟上了这里的节奏，虽然辛苦，但我却一点也不感觉累，因为在充实的工作环境中，我是有所收获的，在公司野蛮生长的同时，我个人也得到了快速的成长。</p><p>另外，别以为一线大厂的“打工人”只会死工作，字节人最大的特点就是年轻，他们同样会玩，每个人都有自己的爱好，骑行、狼人杀、健身、摄影、瑜伽等等，这与我之前对大厂人的印象显然不同，我也一点一点在慢慢被影响着。</p><p>⑤反思：关注工作效率</p><p>以前觉得自己的工作效率和时间管理做得还不错，至少能拿出时间做一点大家想做却没有做的事情，但现在才发现这也许只是错觉，你总做容易的事情，当然不会感觉到时间的压力，即便是项目进度比较紧的时候，加加班，搞搞 996 似乎也就那么回事。我们通常都会愿意延长时间，而不是考虑如何提高效率，在同样的时间内完成更多的工作，当然也有很多不言自明的客观原因。</p><p>来字节后，我才从身边同事的工作细节中看到了什么才是“效率”。</p><p>附件📎说辞</p><p>尊敬的面试官&#x2F;HR您好，<br>我是来自xx学院xx年级xx专业的某某某。我的求职意向为xxx岗位。我的成绩排名&#x2F;实习经历为xxx，与贵公司的岗位需求十分符合。附件是我的简历，请查收。感谢您的阅读，期待您的回复！祝工作顺利，<br>某某某<br>电话|邮箱</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;ᐕ-୨&quot;&gt;&lt;a href=&quot;#ᐕ-୨&quot; class=&quot;headerlink&quot; title=&quot;ᐕ)୨&quot;&gt;&lt;/a&gt;ᐕ)୨&lt;/h1&gt;&lt;p&gt;感觉写下来记下来比收藏吃灰有用，一直记录一直学习，每天睡前看一看&lt;/p&gt;
-&lt;h2 id=&quot;面经总结&quot;&gt;&lt;a href=&quot;#面经总结&quot;</summary>
-      
-    
-    
-    
-    
-    <category term="规划" scheme="https://arieran.github.io/tags/%E8%A7%84%E5%88%92/"/>
-    
-  </entry>
   
   <entry>
     <title>Swift中optional类型的解包方法</title>
