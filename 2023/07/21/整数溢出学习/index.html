@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Arie">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://arieran.github.io/2023/07/21/整数溢出学习/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="整数溢出当时在进入小组考核的时候，记得这个基础漏洞，后续没有深究，现在看到又重新学习一下。结合小组成员文章和网络上的文章。 0x01漏洞攻击事件2018年4月22日，黑客对BEC智能合约发起攻击，凭空取出： 57,896,044,618,658,100,000,000,000,000,000,000,000,000,000,000,000,000,000,000.79200395656481996">
+<meta property="og:type" content="article">
+<meta property="og:title" content="整数溢出学习">
+<meta property="og:url" content="https://arieran.github.io/2023/07/21/%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="整数溢出当时在进入小组考核的时候，记得这个基础漏洞，后续没有深究，现在看到又重新学习一下。结合小组成员文章和网络上的文章。 0x01漏洞攻击事件2018年4月22日，黑客对BEC智能合约发起攻击，凭空取出： 57,896,044,618,658,100,000,000,000,000,000,000,000,000,000,000,000,000,000,000.79200395656481996">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-07-21T14:00:38.000Z">
+<meta property="article:modified_time" content="2023-07-21T14:08:23.638Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="漏洞攻击">
+<meta name="twitter:card" content="summary">
+    
+    
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', '');
+        </script>
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/arielogo1.jpg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/arielogo1.jpg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/arielogo1.jpg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            整数溢出学习 -
+        
+        Arie&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"arieran.github.io","root":"/","language":"zh-CN","path":"search.xml"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":true,"recommendation":{"enable":true,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"google_analytics":{"enable":true,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/ariewall-light.jpg","dark":"/images/ariewall-dark.jpg"},"title":"Welcome","subtitle":{"text":["祝我们","大杀四方"],"hitokoto":{"enable":true,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"links":{"github":"https://github.com/arieran","instagram":null,"zhihu":null,"twitter":null,"email":"aran1026@163.com"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.2.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Status":{"path":"https://status.evanluo.top/","icon":"fa-regular fa-chart-bar"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/EvanNotFound/hexo-theme-redefine","Blog":"https://ohevan.com","Friends":"/friends"}},"Links":{"icon":"fa-regular fa-link","submenus":{"Link1":"https://www.levi104.com/"}}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":"努力努力","links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    Global.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    Global.data_config = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Arie&#39;s Blog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        首页
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        归档
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    target="_blank" rel="noopener" href="https://status.evanluo.top/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-chart-bar"></i>
+                                        
+                                        状态
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown" 
+                                    href="#" onClick="return false;">
+                                    
+                                        
+                                            <i class="fa-regular fa-user"></i>
+                                        
+                                        关于&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                    
+                                        <li>
+                                        <a href="/about">ME
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://github.com/EvanNotFound/hexo-theme-redefine">GITHUB
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://ohevan.com">BLOG
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a href="/friends">友情链接
+                                        </a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown" 
+                                    href="#" onClick="return false;">
+                                    
+                                        
+                                            <i class="fa-regular fa-link"></i>
+                                        
+                                        链接&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://www.levi104.com/">LINK1
+                                        </a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                首页
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                归档
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        target="_blank" rel="noopener" href="https://status.evanluo.top/"  >
+                             
+                                
+                                    <i class="fa-regular fa-chart-bar"></i>
+                                
+                                状态
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="has-dropdown" 
+                        href="#" onClick="return false;">
+                            
+                                
+                                    <i class="fa-regular fa-user"></i>
+                                
+                                关于&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                              
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" href="/about">ME</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://github.com/EvanNotFound/hexo-theme-redefine">GITHUB</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://ohevan.com">BLOG</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" href="/friends">友情链接</a>
+                            </li>
+                        
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="has-dropdown" 
+                        href="#" onClick="return false;">
+                            
+                                
+                                    <i class="fa-regular fa-link"></i>
+                                
+                                链接&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                              
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://www.levi104.com/">LINK1</a>
+                            </li>
+                        
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                
+                  <h1 class="article-title-regular">整数溢出学习</h1>
+                
+              </div>
+              
+                     
+            
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/ariehead.jpg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Arie</span>
+                            
+                                <span class="author-label">Lv1</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-07-21 22:38</span>
+        <span class="mobile">2023-07-21 22:38</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-07-21 22:08:23</span>
+            <span class="mobile">2023-07-21 22:08:23</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E6%BC%8F%E6%B4%9E%E6%94%BB%E5%87%BB/">漏洞攻击</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.9k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>8 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="整数溢出"><a href="#整数溢出" class="headerlink" title="整数溢出"></a>整数溢出</h2><p>当时在进入小组考核的时候，记得这个基础漏洞，后续没有深究，现在看到又重新学习一下。结合小组成员文章和网络上的文章。</p>
+<h3 id="0x01漏洞攻击事件"><a href="#0x01漏洞攻击事件" class="headerlink" title="0x01漏洞攻击事件"></a>0x01漏洞攻击事件</h3><p>2018年4月22日，黑客对BEC智能合约发起攻击，凭空取出：</p>
+<p><strong>57,896,044,618,658,100,000,000,000,000,000,000,000,000,000,000,000,000,000,000.792003956564819968</strong> 个BEC代币并在市场上进行抛售，BEC随即急剧贬值，价值几乎为0，该市场瞬间土崩瓦解。</p>
+<p>2018年4月25日，SMT项目方发现其交易存在异常，黑客利用其函数漏洞创造了：</p>
+<p><strong>65,133,050,195,990,400,000,000,000,000,000,000,000,000,000,000,000,000,000,000+50,659,039,041,325,800,000,000,000,000,000,000,000,000,000,000,000,000,000,000</strong> 的SMT币，火币Pro随即暂停了所有币种的充值提取业务。</p>
+<p>2018年12月27日，以太坊智能合约Fountain(FNT)出现整数溢出漏洞，黑客利用其函数漏洞创造了：</p>
+<p><strong>2+115792089237316195423570985008687907853269984665640564039457584007913129639935</strong> 的SMT币。</p>
+<p>历史的血泪教训，如今不该再次出现。让我们一起缅怀这些一夜归零的代币，吸取前人经验教训。</p>
+<h3 id="0x02-整数溢出原理"><a href="#0x02-整数溢出原理" class="headerlink" title="0x02 整数溢出原理"></a>0x02 整数溢出原理</h3><ul>
+<li><strong>整数溢出原理</strong></li>
+</ul>
+<p>由于计算机底层是二进制，任何十进制数字都会被编码到二进制。溢出会丢弃最高位，导致数值不正确。</p>
+<p>如：八位无符号整数类型的最大值是 255，翻译到二进制是 1111 1111；当再加一时，当前所有的 1 都会变成 0，并向上进位。但由于该整数类型所能容纳的位置已经全部是 1 了，再向上进位，最高位会被丢弃，于是二进制就变成了 0000 0000</p>
+<p>注：有符号的整数类型，其二进制最高位代表正负。所以该类型的正数溢出会变成负数，而不是零。（计组内容）</p>
+<ul>
+<li><strong>整数溢出示例（通用编程语言）</strong></li>
+</ul>
+<p>编程语言由算数导致的整数溢出漏洞司空见惯，其类型包括如下三种：</p>
+<p>• 加法溢出</p>
+<p>• 减法溢出</p>
+<p>• 乘法溢出</p>
+<p>我们先以运行在 JVM 上的 Kotlin 编程语言做加法运算来测试整数溢出为例：</p>
+<div class="highlight-container" data-rel="Kotlin"><figure class="iseeu highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">   println(<span class="built_in">Long</span>.MAX_VALUE + <span class="number">1</span>) <span class="comment">// Long 是有符号的 128 位 Integer 类型</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>程序会打印出 -9223372036854775808，这其实是<strong>在编译期就没有防止整数溢出</strong>，因为编译器让溢出的代码通过编译了。</p>
+<p>当然，也有<strong>在编译期严格检查整数溢出的编程语言</strong>。如区块链世界最火的 Rust 编程语言：</p>
+<div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    dbg!(u128::<span class="variable constant_">MAX</span> + <span class="number">1</span>); <span class="comment">// u128 是无符号的 128 位 Integer 类型</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>编译这段代码，你会得到编译错误：</p>
+<div class="highlight-container" data-rel="Rust"><figure class="iseeu highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">error: this arithmetic operation will overflow</span><br><span class="line"> -<span class="punctuation">-&gt;</span> src/main.rs:<span class="number">2</span>:<span class="number">10</span></span><br><span class="line">  |</span><br><span class="line"><span class="number">2</span> |     dbg!(<span class="type">u128</span>::MAX + <span class="number">1</span>);</span><br><span class="line">  |          ^^^^^^^^^^^^^ attempt to compute `<span class="type">u128</span>::MAX + <span class="number">1_u128</span>`, which would overflow</span><br><span class="line">  |</span><br><span class="line">  = note: `<span class="meta">#[deny(arithmetic_overflow)]</span>` on by default</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>那么，如果是运行时呢？</strong>我们来读取用户输入试试：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fn main() &#123;</span><br><span class="line">    let mut s = String::new();</span><br><span class="line">    std::io::stdin().read_line(&amp;mut s).unwrap();</span><br><span class="line">    dbg!(s.trim_end().parse::&lt;u8&gt;().unwrap() + 1); // u8 是无符号的 8 位 Integer 类型</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>运行 cargo r，输入：255，得到 panic：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">thread <span class="string">&#x27;main&#x27;</span> panicked at <span class="string">&#x27;attempt to add with overflow&#x27;</span></span><br></pre></td></tr></table></figure></div>
+
+<p>可以看到，在 debug 模式下，溢出会直接 panic，也就是：程序崩溃掉、停止工作。那么，release 模式下也是这样吗？</p>
+<p>运行 cargo r –release，输入：255，打印：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[src/main.rs:4] s.trim_end().parse::&lt;u8&gt;().unwrap() + 1 = 0</span><br></pre></td></tr></table></figure></div>
+
+<p>综上，我们得到一条结论：<strong>即使在编译期严格检查溢出的程序语言，依然会有整数溢出问题。</strong>整数溢出就好像是一个魔咒，总会隔三岔五地出现，无法一劳永逸地消除。</p>
+<p>下面来看一下</p>
+<ul>
+<li><strong>智能合约中的整数溢出（Solidity 语言）</strong></li>
+</ul>
+<p>在区块链的世界里，智能合约的 Solidity 语言中，对于 0.8.0 以下的版本，也存在整数溢出问题。</p>
+<p>和通用型编程语言一样，我们先看看编译期是否会发生溢出：</p>
+<p>实测，测试函数会直接发生编译错误。再来看看运行时：</p>
+<p>实测，程序会在运行时溢出。我们建议使用 SafeMath 库来解决漏洞溢出：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">library SafeMath &#123;</span><br><span class="line">  function mul(uint256 a, uint256 b) internal constant returns (uint256) &#123;</span><br><span class="line">    uint256 c = a * b;</span><br><span class="line">    assert(a == 0 || c / a == b);</span><br><span class="line">    return c;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function div(uint256 a, uint256 b) internal constant returns (uint256) &#123;</span><br><span class="line">    uint256 c = a / b;</span><br><span class="line">    return c;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function sub(uint256 a, uint256 b) internal constant returns (uint256) &#123;</span><br><span class="line">    assert(b &lt;= a);</span><br><span class="line">    return a - b;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function add(uint256 a, uint256 b) internal constant returns (uint256) &#123;</span><br><span class="line">    uint256 c = a + b;</span><br><span class="line">    assert(c &gt;= a);</span><br><span class="line">    return c;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>对于 Solidity 0.8.0 以上的版本，官方已经修复了这个问题。那么它到底是如何修复的？将要溢出时会发生什么来防止溢出呢？</p>
+<p>实测，Solidity 0.8 以上的版本发生运行时溢出会直接 revert。</p>
+<p>原来，修复的方式就是不允许溢出。int256 足够大，只要保证无法被黑客利用这一点凭空创造收益，我们就成功了。</p>
+<h3 id="0x03-漏洞合约和攻击手法"><a href="#0x03-漏洞合约和攻击手法" class="headerlink" title="0x03 漏洞合约和攻击手法"></a>0x03 漏洞合约和攻击手法</h3><p>以 BEC 合约为例，合约地址为：</p>
+<p><em>0xC5d105E63711398aF9bbff092d4B6769C82F793D</em></p>
+<p>在 etherscan 上的地址为：</p>
+<p><em><a class="link"   target="_blank" rel="noopener" href="https://etherscan.io/address/0xc5d105e63711398af9bbff092d4b6769c82f793d#code" >https://etherscan.io/address/0xc5d105e63711398af9bbff092d4b6769c82f793d#code <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></em></p>
+<p>存在溢出漏洞的合约代码如下：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function batchTransfer(address[] _receivers, uint256 _value) public whenNotPaused returns (bool) &#123;</span><br><span class="line">    uint cnt = _receivers.length;</span><br><span class="line">    uint256 amount = uint256(cnt) * _value; //溢出点，这里存在整数溢出</span><br><span class="line">    require(cnt &gt; 0 &amp;&amp; cnt &lt;= 20);</span><br><span class="line">    require(_value &gt; 0 &amp;&amp; balances[msg.sender] &gt;= amount);</span><br><span class="line"></span><br><span class="line">    balances[msg.sender] = balances[msg.sender].sub(amount);</span><br><span class="line">    for (uint i = 0; i &lt; cnt; i++) &#123;</span><br><span class="line">        balances[_receivers[i]] = balances[_receivers[i]].add(_value);</span><br><span class="line">        Transfer(msg.sender, _receivers[i], _value);</span><br><span class="line">    &#125;</span><br><span class="line">    return true;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>当时的合约版本是 ^0.4.16，小于 0.8 版本，也没有使用 SafeMath 库，因此存在整数溢出问题。</p>
+<p>黑客传入了一个极大的值（这里为2**255），通过乘法向上溢出，使得 amount（要转的总币数）溢出后变为一个很小的数字或者0（这里变成0），从而绕过 balances[msg.sender] &gt;&#x3D; amount 的检查代码，使得巨大 _value 数额的恶意转账得以成功。</p>
+<p>实际攻击的恶意转账记录：</p>
+<p><em><a class="link"   target="_blank" rel="noopener" href="https://etherscan.io/tx/0xad89ff16fd1ebe3a0a7cf4ed282302c06626c1af33221ebe0d3a470aba4a660f" >https://etherscan.io/tx/0xad89ff16fd1ebe3a0a7cf4ed282302c06626c1af33221ebe0d3a470aba4a660f <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></em></p>
+<h3 id="0x04-漏洞案例"><a href="#0x04-漏洞案例" class="headerlink" title="0x04 漏洞案例"></a>0x04 漏洞案例</h3><p>这里跟着李碧友的做了一遍</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^0.4.21;</span><br><span class="line"></span><br><span class="line">contract TokenSaleChallenge &#123;</span><br><span class="line">    mapping(address =&gt; uint256) public balanceOf;</span><br><span class="line">    uint256 constant PRICE_PER_TOKEN = 1 ether;</span><br><span class="line"></span><br><span class="line">    function TokenSaleChallenge(address _player) public payable &#123;</span><br><span class="line">        require(msg.value == 1 ether);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function isComplete() public view returns (bool) &#123;</span><br><span class="line">        return address(this).balance &lt; 1 ether;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function buy(uint256 numTokens) public payable &#123;</span><br><span class="line">        require(msg.value == numTokens * PRICE_PER_TOKEN);</span><br><span class="line"></span><br><span class="line">        balanceOf[msg.sender] += numTokens;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function sell(uint256 numTokens) public &#123;</span><br><span class="line">        require(balanceOf[msg.sender] &gt;= numTokens);</span><br><span class="line"></span><br><span class="line">        balanceOf[msg.sender] -= numTokens;</span><br><span class="line">        msg.sender.transfer(numTokens * PRICE_PER_TOKEN);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>用相同的钱来买相同的代币是行不通的—-</p>
+<p>因为 <code>buy</code> 函数中的<code>require(msg.value == numTokens * PRICE_PER_TOKEN); balanceOf[msg.sender] += numTokens;</code> </p>
+<p>和 <code>sell</code> 函数中的 <code>require(balanceOf[msg.sender] &gt;= numTokens); balanceOf[msg.sender] -= numTokens;</code> </p>
+<p>限制了你存多少取多少，不能存少取多</p>
+<p>我们就要存少，存少就要涉及到溢出。让 <code>require(msg.value == numTokens * PRICE_PER_TOKEN);</code> 中的<code>numTokens * PRICE_PER_TOKEN</code> 发生溢出，我们就可以实现花费少的主币获取更多的代币。</p>
+<p>算一下溢出的门槛</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//115792089237316195423570985008687907853269984665640564039457584007913129639935</span><br><span class="line"> uint256 result = 2256 - 1;</span><br><span class="line"> //115792089237316195423570985008687907853269984665640564039457</span><br><span class="line"> uint256 temp = result / 1018;</span><br><span class="line"> // 此时给temp 的值加 1 应该是触发溢出的最低门槛</span><br><span class="line"> uint256 money = (temp + 1) * 10**18; //money=415992086870360064</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="0x05-总结"><a href="#0x05-总结" class="headerlink" title="0x05 总结"></a>0x05 总结</h3><p>在 Solidity 0.8 版本以下，且未使用 SafeMath 库的情况下：黑客往往会利用溢出构造一个极小值&#x2F;极大值，从而绕过某些检查，使巨额恶意转账得以成功。</p>
+<p>当然，合约漏洞不仅仅只有整数溢出。除了开发者自身提高安全开发意识外，寻找专业的安全团队对合约进行全面的审计也是非常有必要的。</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> 整数溢出学习</li>
+        <li><strong>作者:</strong> Arie</li>
+        <li><strong>创建于:</strong> 2023-07-21 22:00:38</li>
+        
+            <li>
+                <strong>更新于:</strong> 2023-07-21 22:08:23
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://arieran.github.io/2023/07/21/整数溢出学习/
+        </li>
+        <li>
+            <strong>版权声明:</strong> 本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a> 进行许可。
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/%E6%BC%8F%E6%B4%9E%E6%94%BB%E5%87%BB/">#漏洞攻击</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+  <div class="recommended-article">
+   <div class="recommended-desktop">
+    <div class="recommended-article-header">
+     <i aria-hidden="true"></i><span>推荐阅读</span>
+    </div>
+    <div class="recommended-article-group"><a class="recommended-article-item" href="/2023/07/21/Earning-Farm攻击事件分析/" title="Earning.Farm攻击事件分析" rel="bookmark">
+  <img src="/images/wallhaven-wqery6-light.webp" alt="Earning.Farm攻击事件分析">
+  <span class="title">Earning.Farm攻击事件分析</span>
+</a><a class="recommended-article-item" href="/2023/07/21/区块链安全入门/" title="区块链安全入门" rel="bookmark">
+  <img src="/images/wallhaven-wqery6-light.webp" alt="区块链安全入门">
+  <span class="title">区块链安全入门</span>
+</a><a class="recommended-article-item" href="/2023/07/21/hello-world/" title="Hello World" rel="bookmark">
+  <img src="/images/wallhaven-wqery6-light.webp" alt="Hello World">
+  <span class="title">Hello World</span>
+</a></div>
+   </div>
+   <div class="recommended-mobile">
+   <div class="recommended-article-header">
+     <i aria-hidden="true"></i><span>推荐阅读</span>
+   </div>
+   <div class="recommended-article-group"><a class="recommended-article-item" href="/2023/07/21/Earning-Farm攻击事件分析/" title="Earning.Farm攻击事件分析" rel="bookmark">
+  <img src="/images/wallhaven-wqery6-light.webp" alt="Earning.Farm攻击事件分析">
+  <span class="title">Earning.Farm攻击事件分析</span>
+</a><a class="recommended-article-item" href="/2023/07/21/区块链安全入门/" title="区块链安全入门" rel="bookmark">
+  <img src="/images/wallhaven-wqery6-light.webp" alt="区块链安全入门">
+  <span class="title">区块链安全入门</span>
+</a></div>
+   </div>
+  </div>
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2023/07/21/Earning-Farm%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E5%88%86%E6%9E%90/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Earning.Farm攻击事件分析</span>
+                                    <span class="post-nav-item">上一篇</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/07/21/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AE%89%E5%85%A8%E5%85%A5%E9%97%A8/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">区块链安全入门</span>
+                                    <span class="post-nav-item">下一篇</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;评论
+    </div>
+    
+
+        
+            
+ 
+    <div id="waline"></div>
+    <script type="module"  data-pjax>
+        import { init } from 'https://evan.beee.top/js/waline.mjs';
+
+        function loadWaline() {
+            init({
+                el: '#waline',
+                serverURL: 'https://arie-s-comment.vercel.app/',
+                lang: 'zh-CN',
+                dark: 'body[class~="dark-mode"]',
+                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
+            });
+        }
+
+        if ('true') {
+            const loadWalineTimeout = setTimeout(() => {
+                loadWaline();
+                clearTimeout(loadWalineTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadWaline);
+        }
+        
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">此页目录</div>
+        <div class="page-title">整数溢出学习</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA"><span class="nav-text">整数溢出</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01%E6%BC%8F%E6%B4%9E%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6"><span class="nav-text">0x01漏洞攻击事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86"><span class="nav-text">0x02 整数溢出原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x03-%E6%BC%8F%E6%B4%9E%E5%90%88%E7%BA%A6%E5%92%8C%E6%94%BB%E5%87%BB%E6%89%8B%E6%B3%95"><span class="nav-text">0x03 漏洞合约和攻击手法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x04-%E6%BC%8F%E6%B4%9E%E6%A1%88%E4%BE%8B"><span class="nav-text">0x04 漏洞案例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x05-%E6%80%BB%E7%BB%93"><span class="nav-text">0x05 总结</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Arie</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a> 驱动</span>
+                <br>
+            <span class="theme-version-container">主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.2.2</a>
+        </div>
+        
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/navbarShrink.js"></script>
+
+<script src="/js/tools/scrollTopBottom.js"></script>
+
+<script src="/js/tools/lightDarkSwitch.js"></script>
+
+
+
+    
+<script src="/js/tools/localSearch.js"></script>
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/tocToggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

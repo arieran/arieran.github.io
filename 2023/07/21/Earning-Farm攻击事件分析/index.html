@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Arie">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://arieran.github.io/2023/07/21/earning-farm攻击事件分析/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="咱们小组成员写的文章，赞赞滴！！！又查了一点零时的分析，放在一起学习一哈 前面的背景直接cv了 背景介绍Earning Farm 是一款便利友好的投资软件，帮助用户管理加密资产。而在10月15日，Earning.Farm 的 EFLeverVault 合约遭到两次闪电贷攻击。其中第一笔攻击被 MEV bot 截获，损失 480 ETH，第二笔黑客完成攻击，获利 268 ETH，超过34万美元。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Earning.Farm攻击事件分析">
+<meta property="og:url" content="https://arieran.github.io/2023/07/21/Earning-Farm%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="咱们小组成员写的文章，赞赞滴！！！又查了一点零时的分析，放在一起学习一哈 前面的背景直接cv了 背景介绍Earning Farm 是一款便利友好的投资软件，帮助用户管理加密资产。而在10月15日，Earning.Farm 的 EFLeverVault 合约遭到两次闪电贷攻击。其中第一笔攻击被 MEV bot 截获，损失 480 ETH，第二笔黑客完成攻击，获利 268 ETH，超过34万美元。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ctfiot.oss-cn-beijing.aliyuncs.com/uploads/2022/10/3-1665834709.png">
+<meta property="og:image" content="https://ctfiot.oss-cn-beijing.aliyuncs.com/uploads/2022/10/6-1665834709.png">
+<meta property="article:published_time" content="2023-07-21T14:03:46.000Z">
+<meta property="article:modified_time" content="2023-07-21T14:05:14.967Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="攻击事件分析">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ctfiot.oss-cn-beijing.aliyuncs.com/uploads/2022/10/3-1665834709.png">
+    
+    
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', '');
+        </script>
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/arielogo1.jpg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/arielogo1.jpg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/arielogo1.jpg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Earning.Farm攻击事件分析 -
+        
+        Arie&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"arieran.github.io","root":"/","language":"zh-CN","path":"search.xml"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":true,"recommendation":{"enable":true,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"google_analytics":{"enable":true,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/ariewall-light.jpg","dark":"/images/ariewall-dark.jpg"},"title":"Welcome","subtitle":{"text":["祝我们","大杀四方"],"hitokoto":{"enable":true,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"links":{"github":"https://github.com/arieran","instagram":null,"zhihu":null,"twitter":null,"email":"aran1026@163.com"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.2.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Status":{"path":"https://status.evanluo.top/","icon":"fa-regular fa-chart-bar"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/EvanNotFound/hexo-theme-redefine","Blog":"https://ohevan.com","Friends":"/friends"}},"Links":{"icon":"fa-regular fa-link","submenus":{"Link1":"https://www.levi104.com/"}}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":"努力努力","links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    Global.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    Global.data_config = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Arie&#39;s Blog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        首页
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        归档
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    target="_blank" rel="noopener" href="https://status.evanluo.top/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-chart-bar"></i>
+                                        
+                                        状态
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown" 
+                                    href="#" onClick="return false;">
+                                    
+                                        
+                                            <i class="fa-regular fa-user"></i>
+                                        
+                                        关于&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                    
+                                        <li>
+                                        <a href="/about">ME
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://github.com/EvanNotFound/hexo-theme-redefine">GITHUB
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://ohevan.com">BLOG
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a href="/friends">友情链接
+                                        </a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown" 
+                                    href="#" onClick="return false;">
+                                    
+                                        
+                                            <i class="fa-regular fa-link"></i>
+                                        
+                                        链接&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://www.levi104.com/">LINK1
+                                        </a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                首页
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                归档
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        target="_blank" rel="noopener" href="https://status.evanluo.top/"  >
+                             
+                                
+                                    <i class="fa-regular fa-chart-bar"></i>
+                                
+                                状态
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="has-dropdown" 
+                        href="#" onClick="return false;">
+                            
+                                
+                                    <i class="fa-regular fa-user"></i>
+                                
+                                关于&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                              
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" href="/about">ME</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://github.com/EvanNotFound/hexo-theme-redefine">GITHUB</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://ohevan.com">BLOG</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" href="/friends">友情链接</a>
+                            </li>
+                        
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="has-dropdown" 
+                        href="#" onClick="return false;">
+                            
+                                
+                                    <i class="fa-regular fa-link"></i>
+                                
+                                链接&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                              
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://www.levi104.com/">LINK1</a>
+                            </li>
+                        
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                
+                  <h1 class="article-title-regular">Earning.Farm攻击事件分析</h1>
+                
+              </div>
+              
+                     
+            
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/ariehead.jpg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Arie</span>
+                            
+                                <span class="author-label">Lv1</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-07-21 22:03:46</span>
+        <span class="mobile">2023-07-21 22:03:46</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-07-21 22:05:14</span>
+            <span class="mobile">2023-07-21 22:05:14</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E5%88%86%E6%9E%90/">攻击事件分析</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>2.3k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>9 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <p>咱们小组成员写的文章，赞赞滴！！！又查了一点零时的分析，放在一起学习一哈</p>
+<p>前面的背景直接cv了</p>
+<h3 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h3><p>Earning Farm 是一款便利友好的投资软件，帮助用户管理加密资产。而在10月15日，Earning.Farm 的 <strong>EFLeverVault 合约</strong>遭到两次<strong>闪电贷攻击</strong>。其中第一笔攻击被 <strong>MEV bot</strong> 截获，损失 480 ETH，第二笔黑客完成攻击，获利 268 ETH，超过34万美元。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://ctfiot.oss-cn-beijing.aliyuncs.com/uploads/2022/10/3-1665834709.png"
+                      alt="img"
+                ></p>
+<p>通过观察交易细节图，不难发现攻击者在调用了 <code>Balancer</code> 的 <code>flashloan</code> 之后，直接把闪电贷的接收人设置为 <code>EFVault</code> 合约，然后触发了 <code>EFVault</code> 的 <code>receiveFlashLoan</code> 函数，再继续就是攻击者调用 <code>withdraw</code> 函数，然后钱就神奇的去了攻击者的攻击合约里。那么这里头究竟发生了啥呢？</p>
+<h3 id="攻击地址及交易信息"><a href="#攻击地址及交易信息" class="headerlink" title="攻击地址及交易信息"></a>攻击地址及交易信息</h3><blockquote>
+<ul>
+<li><p>攻击者账户地址：</p>
+</li>
+<li><p>0xdf31f4c8dc9548eb4c416af26dc396a25fde4d5f</p>
+</li>
+<li></li>
+<li><p>攻击者合约地址：</p>
+</li>
+<li><p>0x140cca423081ed0366765f18fc9f5ed299699388</p>
+</li>
+<li></li>
+<li><p>攻击交易：</p>
+</li>
+<li><p>0x160c5950a01b88953648ba90ec0a29b0c5383e055d35a7835d905c53a3dda01e</p>
+</li>
+<li></li>
+</ul>
+<p>​        被攻击合约地址：</p>
+<p>​        0xe39fd820B58f83205Db1D9225f28105971c3D309</p>
+</blockquote>
+<h3 id="攻击过程"><a href="#攻击过程" class="headerlink" title="攻击过程"></a>攻击过程</h3><p>1.攻击者创建一个智能合约向balancer发送一个闪贷请求,贷款560Eth，闪贷接收者为被攻击的EFLeverVault合约.</p>
+<p>![截屏2023-05-13 19.03.45](&#x2F;Users&#x2F;doumeili&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;截屏2023-05-13 19.03.45.png)</p>
+<p>2.EFLeverVault的<code>receiveFlashLoan</code>回调触发，根据userData传入参数调用_withdraw函数计算得出大量获利833stETH</p>
+<p>![截屏2023-05-13 19.06.55](&#x2F;Users&#x2F;doumeili&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;截屏2023-05-13 19.06.55.png)</p>
+<p>3.归还560ETH之后，还剩273stETH。</p>
+<p>![截屏2023-05-13 19.08.15](&#x2F;Users&#x2F;doumeili&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;截屏2023-05-13 19.08.15.png)</p>
+<p>4.调用withdraw函数取出余额获利</p>
+<p>![截屏2023-05-13 19.09.59](&#x2F;Users&#x2F;doumeili&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;截屏2023-05-13 19.09.59.png)</p>
+<p>5.最后攻击者一共获利268.7ETH</p>
+<p>![截屏2023-05-13 19.10.12](&#x2F;Users&#x2F;doumeili&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;截屏2023-05-13 19.10.12.png)</p>
+<h3 id="“钥匙是对的，开门的是贼而已”"><a href="#“钥匙是对的，开门的是贼而已”" class="headerlink" title="“钥匙是对的，开门的是贼而已”"></a>“钥匙是对的，开门的是贼而已”</h3><h4 id="1、receiveFlashLoan"><a href="#1、receiveFlashLoan" class="headerlink" title="1、receiveFlashLoan"></a>1、<code>receiveFlashLoan</code></h4><p>首先根据这个流程来看。攻击者直接调用了 <code>EFVault</code> 的 <code>receiveFlashLoan</code> 函数，而这个函数一般是不允许合约以外的用户直接调用的，这就有点像是之前关于 <code>uniswapV2Call</code> 被任意调用导致的问题一样。但是光从这一点，还不能完全推断出究竟是什么问题导致的进一步的损失，所以，我们还需要结合 <code>receiveFlashLoan</code> 和 <code>withdraw</code> 的逻辑来继续具体看看。我们先看 <code>receiveFlashLoan</code> 的逻辑</p>
+<blockquote>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function receiveFlashLoan(  </span><br><span class="line">         IERC20[] memory tokens,   </span><br><span class="line">         uint256[] memory amounts,      </span><br><span class="line">         uint256[] memory feeAmounts,     </span><br><span class="line">         bytes memory userData   </span><br><span class="line">         )public payable &#123;   </span><br><span class="line">         require(msg.sender == balancer, &quot;only flashloan vault&quot;);</span><br><span class="line">         uint256 loan_amount = amounts[0];    </span><br><span class="line">         uint256 fee_amount = feeAmounts[0];</span><br><span class="line">         if (keccak256(userData) == keccak256(&quot;0x1&quot;))&#123; </span><br><span class="line">         _deposit(loan_amount, fee_amount);    </span><br><span class="line">         &#125;      </span><br><span class="line">         if (keccak256(userData) == keccak256(&quot;0x2&quot;))&#123;</span><br><span class="line">         _withdraw(loan_amount, fee_amount);      </span><br><span class="line">         &#125;   </span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></div>
+</blockquote>
+<p>通过观察该函数，不难发现 这个函数仅在 #L7 行对 <code>msg.sender</code> 进行了检查，**<u>而没有对调用该 <code>flashloan</code> 的地址进行检查。</u><strong>然后再根据 <code>userData</code> 来决定是调用 <code>_deposit</code> 函数还是 <code>_withdraw</code> 函数。到了这里，就很明显能发现，</strong><u>这是一个类似 <code>uniswapV2Call</code> 未鉴权的问题</u>**。通过查看攻击者在调用 <code>flashloan</code> 时传入的参数，可以判断出最后是调用了 <code>_withdraw</code> 函数.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://ctfiot.oss-cn-beijing.aliyuncs.com/uploads/2022/10/6-1665834709.png"
+                      alt="img"
+                ></p>
+<p>回顾上面的 <code>receiveFlashLoan</code> 逻辑，细心看看，检查的逻辑里用的是 <code>keccak256(&quot;0x2&quot;)</code> 而不是 <code>keccak256(0x2)</code> 这里是不一样的，前者相当于对 <code>&quot;0x2&quot;</code> 这个字符做了哈希，而不是对 <code>0x2</code> 这个 16 进制进行哈希，而 <code>&quot;0x2&quot;</code> 对应的 16 进制正好就是 <code>0x307832</code>。</p>
+<p>![截屏2023-05-13 19.27.29](&#x2F;Users&#x2F;doumeili&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;截屏2023-05-13 19.27.29.png)</p>
+<h4 id="2、-withdraw"><a href="#2、-withdraw" class="headerlink" title="2、_withdraw"></a>2、<code>_withdraw</code></h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">function _withdraw(uint256 amount, uint256 fee_amount) </span><br><span class="line">internal&#123;</span><br><span class="line">    uint256 steth_amount = amount.safeMul(IERC20(asteth).balanceOf(address(this))).safeDiv(getDebt());</span><br><span class="line">    if (IERC20(weth).allowance(address(this), aave) != 0) &#123;IERC20(weth).safeApprove(aave, 0);&#125;</span><br><span class="line">    IERC20(weth).safeApprove(aave, amount);</span><br><span class="line"></span><br><span class="line">    IAAVE(aave).repay(weth, amount, 2, address(this));</span><br><span class="line">    IAAVE(aave).withdraw(lido, steth_amount, address(this));</span><br><span class="line"></span><br><span class="line">    if (IERC20(lido).allowance(address(this), curve_pool) != 0) &#123;IERC20(lido).safeApprove(curve_pool, 0);&#125;</span><br><span class="line">    IERC20(lido).safeApprove(curve_pool, steth_amount);</span><br><span class="line">    ICurve(curve_pool).exchange(1, 0, steth_amount, 0);</span><br><span class="line"></span><br><span class="line">    (bool status, ) = weth.call.value(amount.safeAdd(fee_amount))(&quot;&quot;);</span><br><span class="line">    require(status, &quot;transfer eth failed&quot;);</span><br><span class="line">    IERC20(weth).safeTransfer(balancer, amount.safeAdd(fee_amount));</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  </span><br></pre></td></tr></table></figure></div>
+
+<p>通过分析代码逻辑， <code>_withdraw</code> 函数实际上就是根据参数中 <code>amount</code> 的大小把合约所持 <code>stETH</code> 从 <code>aave</code> 中提取出来(L2-7)，然后再把取出来的 <code>stETH</code> 再换成 <code>ETH</code>，再次存入到合约中。然后归还闪电贷。到这里，<code>_withdraw</code> 的代码逻辑我们就梳理完了。结合上文提到的，这里还不是攻击的终点，所以我们还要继续分析 <code>withdraw</code> 函数。</p>
+<blockquote>
+<p>我查了一下 网上文章里所描述的stETH和同学的weth是大致一样的。</p>
+<p>![截屏2023-05-13 19.37.52](&#x2F;Users&#x2F;doumeili&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;截屏2023-05-13 19.37.52.png)</p>
+</blockquote>
+<p>再分析<code>withdraw</code>函数如下</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">function withdraw(uint256 _amount) public nonReentrant&#123;</span><br><span class="line">    require(IERC20(ef_token).balanceOf(msg.sender) &gt;= _amount, &quot;not enough balance&quot;);</span><br><span class="line">    //...省略不重要逻辑</span><br><span class="line"></span><br><span class="line">    uint256 loan_amount = getDebt().safeMul(_amount).safeDiv(IERC20(ef_token).totalSupply());</span><br><span class="line">    </span><br><span class="line">    address[] memory tokens = new address[](1);</span><br><span class="line">    uint256[] memory amounts = new uint256[](1);</span><br><span class="line">    bytes memory userData = &quot;0x2&quot;;</span><br><span class="line">    tokens[0] = weth;</span><br><span class="line">    amounts[0] = loan_amount;</span><br><span class="line">    //uint256 user_eth_before = msg.sender.balance;</span><br><span class="line">    IBalancer(balancer).flashLoan(address(this), tokens, amounts, userData);</span><br><span class="line"></span><br><span class="line">    uint256 to_send = address(this).balance;</span><br><span class="line">    (bool status, ) = msg.sender.call.value(to_send)(&quot;&quot;);</span><br><span class="line">    require(status, &quot;transfer eth failed&quot;);</span><br><span class="line"></span><br><span class="line">    TokenInterfaceERC20(ef_token).destroyTokens(msg.sender, _amount);</span><br><span class="line">    emit CFFWithdraw(msg.sender, to_send, _amount, getVirtualPrice());</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>通过分析 <code>withdraw</code> 函数的逻辑。可以发现其实就是根据用户的 <code>ef_token</code> 的数量，通过 #L5 算出可以提取的份额，再通过发起闪电贷，并指定 <code>userData</code> 为 <code>&quot;0x2&quot;</code>。进行还款后，通过 #L15 的 <code>address(this).balance</code> 来确定剩余在合约中的 <code>ETH</code> 发还给用户。为什么这么判断呢？回顾上面上文，在 <code>withdraw</code> 函数被调用后，会调用 <code>_withdraw</code> 函数 在函数逻辑中，在归还闪电贷之后的资金会留在合约当中。那么根据这个逻辑，闪电贷结束后剩余的资金理应就是用户的资产。所以直接采用 <code>address(this).balance</code> 来判断是没有问题的.</p>
+<p>⚠️【简单来说！外表看整个借贷还贷流程是没问题的！那么！问题出在哪里了呢 到底是哪里动了手脚呢！！】</p>
+<p>💥但是问题在于攻击者打破了这个流程，</p>
+<p>正常的流程应该是先 <code>withdraw</code>，</p>
+<p> 通过 <code>withdraw</code> 触发 <code>_withdraw</code> 最后再用 <code>address(this).balance</code> 来判断剩余资金。</p>
+<p>但由于合约在  <code>receiveFlashLoan</code> 函数中并没有检查闪电贷的发起者，导致 <code>receiveFlashLoan</code> 这个接口是可以被任意调用的，这个时候只需要构造控制参数中的 <code>amount</code> 变量，就可以把合约中的 <code>stETH</code> 全部提出，而由于归还闪电贷后的资金滞留在合约里，导致在调用 <code>withdraw</code> 函数的时候，合约通过 <code>address(this).balance</code> 判断的时候直接把资金判断成是用户的。最终导致了被盗。所以这里其实存在两个问题。</p>
+<p><code>receiveFlashLoan</code> 被任意调用和余额判断用 <code>address(this).balance</code> 进行判断。其中后者是很多开发者容易忽略的问题，如果这里用的是用户真实的提现余额来判断的话，此次攻击事件中，就算在 <code>receiveFlashLoan</code> 存在问题的情况下，攻击者也无法把所有的资金全部提走。</p>
+<h3 id="事件背后的思考"><a href="#事件背后的思考" class="headerlink" title="事件背后的思考"></a>事件背后的思考</h3><p>全文一直在提的就是 <code>receiveFlashLoan</code> 中没有检查闪电贷的发起者导致接口被任意调用，那么是不是可以通过检查发起人就可以避免这个问题呢？像 <code>uniswapV2Call</code> 那样？我们来看看 <code>Balancer Vault</code> 的逻辑：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">function flashLoan(</span><br><span class="line">        IFlashLoanRecipient recipient,</span><br><span class="line">        IERC20[] memory tokens,</span><br><span class="line">        uint256[] memory amounts,</span><br><span class="line">        bytes memory userData</span><br><span class="line">    ) external override nonReentrant whenNotPaused &#123;</span><br><span class="line">        //..省略不重要逻辑</span><br><span class="line"></span><br><span class="line">        for (uint256 i = 0; i &lt; tokens.length; ++i) &#123;</span><br><span class="line">            IERC20 token = tokens[i];</span><br><span class="line">            uint256 amount = amounts[i];</span><br><span class="line"></span><br><span class="line">            _require(token &gt; previousToken, token == IERC20(0) ? Errors.ZERO_TOKEN : Errors.UNSORTED_TOKENS);</span><br><span class="line">            previousToken = token;</span><br><span class="line"></span><br><span class="line">            preLoanBalances[i] = token.balanceOf(address(this));</span><br><span class="line">            feeAmounts[i] = _calculateFlashLoanFeeAmount(amount);</span><br><span class="line"></span><br><span class="line">            _require(preLoanBalances[i] &gt;= amount, Errors.INSUFFICIENT_FLASH_LOAN_BALANCE);</span><br><span class="line">            token.safeTransfer(address(recipient), amount);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        recipient.receiveFlashLoan(tokens, amounts, feeAmounts, userData);</span><br><span class="line">        </span><br><span class="line">        //..省略不重要逻辑</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>通过观察 <code>Balancer Vault</code> 的 <code>flashloan</code> 函数，可以发现函数里没有任何可以用于给资金接收人用于判断闪电贷发起人的参数，最类似的 <code>userData</code> 其实也是从函数参数里获取的，即是用户可控的。也就是说。这个函数如果你写在合约里，就是没办法写成是一个指定发起人才能调用的操作。那怎么办呢？难道就只能任人宰割了吗？并不，这里有几个方法：</p>
+<blockquote>
+<ol>
+<li>确保有实现该方法的合约里，不存有任何资金</li>
+<li>设置流程锁，以这次攻击为例子，必须在 <code>withdraw</code> 函数调用后，设置 <code>withdrawInProcess = true</code>，然后 <code>flashloan</code> 的时候检查到这个状态才允许继续提现。</li>
+</ol>
+</blockquote>
+<p>引用一下：</p>
+<blockquote>
+<p>在分析的过程中，笔者同时注意到 <code>earing.farm</code> 是经过多轮审计的，但最后还是出现了这次的事件，由此我们可以得出，安全是一个动态变化的过程，并不是说某个版本进过了审计就表明已经是没有安全问题了。在安全世界里，每个项目方的状态应该都是已经被黑和在被黑的路上 😀</p>
+</blockquote>
+<p>！！！安全一直在路上 又十分重要 真的真的真的</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> Earning.Farm攻击事件分析</li>
+        <li><strong>作者:</strong> Arie</li>
+        <li><strong>创建于:</strong> 2023-07-21 22:03:46</li>
+        
+            <li>
+                <strong>更新于:</strong> 2023-07-21 22:05:14
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://arieran.github.io/2023/07/21/Earning-Farm攻击事件分析/
+        </li>
+        <li>
+            <strong>版权声明:</strong> 本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a> 进行许可。
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E5%88%86%E6%9E%90/">#攻击事件分析</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+  <div class="recommended-article">
+   <div class="recommended-desktop">
+    <div class="recommended-article-header">
+     <i aria-hidden="true"></i><span>推荐阅读</span>
+    </div>
+    <div class="recommended-article-group"><a class="recommended-article-item" href="/2023/07/21/整数溢出学习/" title="整数溢出学习" rel="bookmark">
+  <img src="/images/wallhaven-wqery6-light.webp" alt="整数溢出学习">
+  <span class="title">整数溢出学习</span>
+</a><a class="recommended-article-item" href="/2023/07/21/区块链安全入门/" title="区块链安全入门" rel="bookmark">
+  <img src="/images/wallhaven-wqery6-light.webp" alt="区块链安全入门">
+  <span class="title">区块链安全入门</span>
+</a><a class="recommended-article-item" href="/2023/07/21/hello-world/" title="Hello World" rel="bookmark">
+  <img src="/images/wallhaven-wqery6-light.webp" alt="Hello World">
+  <span class="title">Hello World</span>
+</a></div>
+   </div>
+   <div class="recommended-mobile">
+   <div class="recommended-article-header">
+     <i aria-hidden="true"></i><span>推荐阅读</span>
+   </div>
+   <div class="recommended-article-group"><a class="recommended-article-item" href="/2023/07/21/整数溢出学习/" title="整数溢出学习" rel="bookmark">
+  <img src="/images/wallhaven-wqery6-light.webp" alt="整数溢出学习">
+  <span class="title">整数溢出学习</span>
+</a><a class="recommended-article-item" href="/2023/07/21/区块链安全入门/" title="区块链安全入门" rel="bookmark">
+  <img src="/images/wallhaven-wqery6-light.webp" alt="区块链安全入门">
+  <span class="title">区块链安全入门</span>
+</a></div>
+   </div>
+  </div>
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/07/21/%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA%E5%AD%A6%E4%B9%A0/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">整数溢出学习</span>
+                                    <span class="post-nav-item">下一篇</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;评论
+    </div>
+    
+
+        
+            
+ 
+    <div id="waline"></div>
+    <script type="module"  data-pjax>
+        import { init } from 'https://evan.beee.top/js/waline.mjs';
+
+        function loadWaline() {
+            init({
+                el: '#waline',
+                serverURL: 'https://arie-s-comment.vercel.app/',
+                lang: 'zh-CN',
+                dark: 'body[class~="dark-mode"]',
+                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
+            });
+        }
+
+        if ('true') {
+            const loadWalineTimeout = setTimeout(() => {
+                loadWaline();
+                clearTimeout(loadWalineTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadWaline);
+        }
+        
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">此页目录</div>
+        <div class="page-title">Earning.Farm攻击事件分析</div>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D"><span class="nav-text">背景介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%BB%E5%87%BB%E5%9C%B0%E5%9D%80%E5%8F%8A%E4%BA%A4%E6%98%93%E4%BF%A1%E6%81%AF"><span class="nav-text">攻击地址及交易信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%BB%E5%87%BB%E8%BF%87%E7%A8%8B"><span class="nav-text">攻击过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%9C%E9%92%A5%E5%8C%99%E6%98%AF%E5%AF%B9%E7%9A%84%EF%BC%8C%E5%BC%80%E9%97%A8%E7%9A%84%E6%98%AF%E8%B4%BC%E8%80%8C%E5%B7%B2%E2%80%9D"><span class="nav-text">“钥匙是对的，开门的是贼而已”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E8%83%8C%E5%90%8E%E7%9A%84%E6%80%9D%E8%80%83"><span class="nav-text">事件背后的思考</span></a></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Arie</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a> 驱动</span>
+                <br>
+            <span class="theme-version-container">主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.2.2</a>
+        </div>
+        
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/navbarShrink.js"></script>
+
+<script src="/js/tools/scrollTopBottom.js"></script>
+
+<script src="/js/tools/lightDarkSwitch.js"></script>
+
+
+
+    
+<script src="/js/tools/localSearch.js"></script>
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/tocToggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
